@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<title>Workshop Event — Scrollable Modal</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:system-ui;background:#0b0b0b;color:#fff}
+
+/* HEADER */
+header{
+ position:fixed;top:0;width:100%;z-index:100;
+ display:flex;justify-content:center;gap:30px;
+ padding:15px;background:rgba(0,0,0,.6);backdrop-filter:blur(6px)
+}
+header a{color:#fff;text-decoration:none;font-weight:600}
+header a:hover{color:#d4af37}
+header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid #d4af37;
+        z-index: 1000;
+        
+        /* Цэсийг голлуулах ба гүйлгэх тохиргоо */
+        display: flex;
+        justify-content: center; 
+        overflow-x: auto; /* Багтахгүй бол гүйлгэнэ */
+        white-space: nowrap; /* Цэсийг доош унагахгүй, нэг эгнээнд байлгана */
+        scrollbar-width: none; /* Firefox-т scrollbar нуух */
+    }
+
+    /* Chrome, Safari-д scrollbar нуух (гэхдээ гүйнэ) */
+    header::-webkit-scrollbar {
+        display: none;
+    }
+
+    header nav {
+        display: flex;
+        padding: 15px 20px;
+        gap: 25px;
+    }
+
+    header a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: 0.3s;
+        flex-shrink: 0; /* Цэсийг шахагдахаас хамгаална */
+    }
+
+    header a:hover {
+        color: #d4af37;
+    }
+
+    /* Идэвхтэй байгаа хуудасны өнгө */
+    header a.active {
+        color: #d4af37;
+        border-bottom: 2px solid #d4af37;
+        padding-bottom: 5px;
+    }
+
+    /* Жижиг дэлгэц дээр (Гар утас) */
+    @media (max-width: 768px) {
+        header {
+            justify-content: flex-start; /* Утас дээр зүүн талаас эхэлж гүйнэ */
+        }
+        header nav {
+            gap: 20px;
+            padding: 15px 15px;
+        }
+        header a {
+            font-size: 11px; /* Текстийг бага зэрэг жижигсгэнэ */
+        }
+    }
+
+/* MAIN */
+main{padding:120px 20px}
+h1{text-align:center;color:#d4af37}
+.subtitle{text-align:center;color:#aaa;margin-bottom:50px}
+
+/* EVENT CARD */
+.event{
+ max-width:1100px;margin:auto;
+ background:#161616;border-radius:20px;
+ overflow:hidden;cursor:pointer;transition:.4s
+}
+.event:hover{transform:translateY(-8px)}
+.event img{width:100%;height:200px;object-fit:cover}
+.event-body{padding:20px}
+.badge{background:#d4af37;color:#000;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:bold}
+.event h3{margin:12px 0}
+.date{color:#d4af37;font-size:14px}
+.desc{color:#ccc;font-size:14px}
+
+/* ===== MODAL WRAPPER (SCROLL ENABLED) ===== */
+.modal{
+ position:fixed;inset:0;
+ background:rgba(0,0,0,.85);
+ display:none;
+ align-items:flex-start;
+ justify-content:center;
+ overflow-y:auto;          /* ⬅ SCROLL */
+ padding:40px 0;
+ z-index:200
+}
+.modal.active{display:flex}
+
+/* MODAL BOX */
+.modal-box{
+ background:#161616;border-radius:24px;
+ width:95%;max-width:900px;
+ max-height:85vh;          /* ⬅ SCREEN FIT */
+ overflow-y:auto;          /* ⬅ INNER SCROLL */
+ padding:30px;
+ animation:zoom .4s ease;
+ position:relative
+}
+@keyframes zoom{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.close{
+ position:sticky;top:0;
+ margin-left:auto;
+ font-size:30px;cursor:pointer;
+ color:#d4af37
+}
+
+/* CONTENT */
+.modal h2{color:#d4af37;margin-bottom:10px}
+.modal p{color:#ccc;line-height:1.7}
+ul{margin:10px 0 20px 20px;color:#ccc}
+
+/* FORM */
+label{display:block;margin:10px 0 5px}
+input,textarea{
+ width:100%;padding:10px;border:none;border-radius:8px;
+ background:#0f0f0f;color:#fff
+}
+textarea{resize:none;height:90px}
+button{
+ margin-top:15px;padding:12px 25px;
+ background:#d4af37;border:none;border-radius:8px;
+ font-weight:bold;cursor:pointer
+}
+button:hover{background:#fff}
+
+/* CONTACT */
+.contact{
+ margin-top:25px;padding:15px;
+ background:#0f0f0f;border-radius:12px
+}
+.contact p{margin:6px 0;color:#ccc}
+
+</style>
+</head>
+
+<body>
+
+ <header>
+  <a href="index.html">нүүр хуудас</a>
+  <a href="about.html">тухай</a>
+  <a href="portfolio.html">Бүтээлүүд</a>
+  <a href="custom.html">Захиалгат</a>
+  <a href="courses.html">Хичээлүүд</a>
+  <a href="services.html">Үйлчилгээ</a>
+  <a href="blog.html">блог
+
+
+  </a>
+  <a href="events.html">үйл ажиллагаа</a>
+  <a href="testimonials.html">сэтгэгдэл</a>
+  <a href="contact.html">холбоо барих</a>
+</header>
+
+<main>
+<h1>Арга хэмжээ</h1>
+<p class="subtitle">Workshop / Сургалт</p>
+
+<div class="event" onclick="openWorkshop()">
+ <img src="img/surgalt4.jpg">
+ <div class="event-body">
+  <span class="badge">Workshop</span>
+  <h3>Монгол бичгийн уран бичлэгийн сургалт</h3>
+  <div class="date">📅 2026.02.10</div>
+  <p class="desc">Анхан → Ахисан түвшин</p>
+ </div>
+</div>
+</main>
+
+<!-- ===== MODAL ===== -->
+<div class="modal" id="workshopModal">
+ <div class="modal-box">
+  <div class="close" onclick="closeWorkshop()">✕</div>
+
+  <h2>Монгол бичгийн уран бичлэгийн сургалт</h2>
+  <p>
+   Энэхүү сургалт нь монгол бичгийн суурь,
+   гарын хөдөлгөөн, уран бичлэгийн хэв маягийг
+   практик аргаар заана.
+  </p>
+
+  <h3 style="color:#d4af37">📌 Хөтөлбөр</h3>
+  <ul>
+   <li>Монгол бичгийн үндэс</li>
+   <li>Гарын зөв хөдөлгөөн</li>
+   <li>Уран бичлэгийн хэв</li>
+   <li>Бие даалт, шүүлт</li>
+  </ul>
+
+  <h3 style="color:#d4af37">📝 Сургалтад бүртгүүлэх</h3>
+  <form>
+   <label>Нэр</label>
+   <input type="text" required>
+
+   <label>Утас</label>
+   <input type="text" required>
+
+   <label>Email</label>
+   <input type="email">
+
+   <label>Нэмэлт мэдээлэл</label>
+   <textarea></textarea>
+
+   <button type="submit">Бүртгүүлэх</button>
+  </form>
+
+  <div class="contact">
+   <h3 style="color:#d4af37">☎️ Холбоо барих</h3>
+   <p>📞 Утас: +976 85208164</p>
+   <p>📘 Facebook:Т.Эрдэнэсувд</p>
+   <p>✉️ Email: erdenesuvdtaivanbaatar@gmail.com</p>
+  </div>
+
+ </div>
+</div>
+
+<script>
+const modal=document.getElementById("workshopModal");
+
+function openWorkshop(){
+ modal.classList.add("active");
+ document.body.style.overflow="hidden"; // background lock
+}
+
+function closeWorkshop(){
+ modal.classList.remove("active");
+ document.body.style.overflow="auto";
+}
+
+// ESC key close
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape") closeWorkshop();
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>бийрэн бичлэгийн захиалга</title>
+<style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body, html{font-family:'Segoe UI', system-ui, sans-serif; background:#0a0a0a; color:#eee; line-height:1.6;}
+    
+   /* ===== HEADER ===== */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  gap:24px;
+  padding:14px 0;
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid #d4af37;
+  z-index:100;
+}
+header a{
+  color:#d4af37;
+  font-weight:600;
+}
+header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid #d4af37;
+        z-index: 1000;
+        
+        /* Цэсийг голлуулах ба гүйлгэх тохиргоо */
+        display: flex;
+        justify-content: center; 
+        overflow-x: auto; /* Багтахгүй бол гүйлгэнэ */
+        white-space: nowrap; /* Цэсийг доош унагахгүй, нэг эгнээнд байлгана */
+        scrollbar-width: none; /* Firefox-т scrollbar нуух */
+    }
+
+    /* Chrome, Safari-д scrollbar нуух (гэхдээ гүйнэ) */
+    header::-webkit-scrollbar {
+        display: none;
+    }
+
+    header nav {
+        display: flex;
+        padding: 15px 20px;
+        gap: 25px;
+    }
+
+    header a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: 0.3s;
+        flex-shrink: 0; /* Цэсийг шахагдахаас хамгаална */
+    }
+
+    header a:hover {
+        color: #d4af37;
+    }
+
+    /* Идэвхтэй байгаа хуудасны өнгө */
+    header a.active {
+        color: #d4af37;
+        border-bottom: 2px solid #d4af37;
+        padding-bottom: 5px;
+    }
+
+    /* Жижиг дэлгэц дээр (Гар утас) */
+    @media (max-width: 768px) {
+        header {
+            justify-content: flex-start; /* Утас дээр зүүн талаас эхэлж гүйнэ */
+        }
+        header nav {
+            gap: 20px;
+            padding: 15px 15px;
+        }
+        header a {
+            font-size: 11px; /* Текстийг бага зэрэг жижигсгэнэ */
+        }
+    }
+
+
+    main{padding:100px 20px 60px;}
+    .container{max-width:850px; margin:0 auto; background:#141414; padding:35px; border-radius:20px; border:1px solid #222; box-shadow:0 20px 50px rgba(0,0,0,0.7);}
+    
+    h1{color:#d4af37; text-align:center; font-size:2.2rem; margin-bottom:10px;}
+    .subtitle{text-align:center; color:#888; margin-bottom:35px; font-size:0.9rem;}
+
+    .input-group{margin-bottom:20px;}
+    .grid-row{display:grid; grid-template-columns: 1fr 1fr; gap:20px;}
+    
+    label{display:block; margin-bottom:8px; font-size:14px; color:#d4af37; font-weight:600;}
+    input, select, textarea {
+        width:100%; padding:12px; border:1px solid #333; border-radius:8px; background:#1f1f1f; color:#fff; outline:none; transition:0.3s;
+    }
+    input:focus, select:focus{border-color:#d4af37;}
+
+    /* Бүтээгдэхүүний харагдах байдал */
+    .product-preview{
+        display:none; background:#1a1a1a; padding:20px; border-radius:12px; margin-bottom:25px; 
+        border:1px solid #333; align-items:center; gap:25px;
+    }
+    .product-preview.show{display:flex; animation:fadeIn 0.4s forwards;}
+    @keyframes fadeIn{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+    
+    .product-preview img{width:180px; height:240px; border-radius:10px; object-fit:cover; border:2px solid #d4af37; background:#000;}
+    .details-text h3{color:#d4af37; margin-bottom:5px;}
+    .details-text p{font-size:14px; color:#aaa; margin-bottom:10px;}
+    .price-badge{background:#d4af37; color:#000; padding:4px 10px; border-radius:5px; font-weight:bold; font-size:14px;}
+
+    .total-card{background:#1f1f1f; padding:20px; border-radius:10px; text-align:right; margin:20px 0; border-right:5px solid #d4af37;}
+    .total-label{color:#888; font-size:14px;}
+    .total-amount{display:block; font-size:1.8rem; color:#fff; font-weight:bold;}
+
+    button{width:100%; padding:15px; background:#d4af37; color:#000; font-weight:bold; border:none; border-radius:8px; cursor:pointer; font-size:16px; transition:0.3s;}
+    button:hover{background:#fff; transform:translateY(-2px);}
+
+    #pdfResult{margin-top:20px; text-align:center;}
+    .download-btn{display:inline-block; padding:12px 25px; background:transparent; border:1px solid #d4af37; color:#d4af37; text-decoration:none; border-radius:8px; transition:0.3s;}
+    .download-btn:hover{background:#d4af37; color:#000;}
+</style>
+</head>
+<body>
+ <header>
+  <a href="index.html">нүүр хуудас</a>
+  <a href="about.html">тухай</a>
+  <a href="portfolio.html">Бүтээлүүд</a>
+  <a href="custom.html">Захиалгат</a>
+  <a href="courses.html">Хичээлүүд</a>
+  <a href="services.html">Үйлчилгээ</a>
+  <a href="blog.html">блог
+
+
+  </a>
+  <a href="events.html">үйл ажиллагаа</a>
+  <a href="testimonials.html">сэтгэгдэл</a>
+  <a href="contact.html">холбоо барих</a>
+</header>
+
+<main>
+    <div class="container">
+        <h1>Уран бичлэгийн захиалга</h1>
+        <p class="subtitle">Уламжлалт бийрэн бичлэгийн төрлүүдээс сонгож, захиалгын нэхэмжлэх үүсгэнэ үү.</p>
+
+        <form id="orderForm">
+            <div class="grid-row">
+                <div class="input-group">
+                    <label>Захиалагчийн нэр</label>
+                    <input type="text" id="custName" placeholder="Нэрээ бичнэ үү" required>
+                </div>
+                <div class="input-group">
+                    <label>Холбоо барих утас</label>
+                    <input type="text" id="custPhone" placeholder="Утасны дугаар" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Бичлэгийн төрөл сонгох</label>
+                <select id="productSelect" required>
+                    <option value="">-- Сонгох --</option>
+                    <option value="Босоо бичлэг (Цаас)">Босоо бичлэг - Муутуу цаас (₮60,000)</option>
+                    <option value="Уран зурагт бичлэг">Уран зурагтай хосолсон бичлэг (₮150,000)</option>
+                    <option value="Торгон дээрх бичлэг">Торгон дээрх уран бичлэг (₮250,000)</option>
+                    <option value="Модон дээрх сийлбэр">Модон дээрх сийлмэл бичлэг (₮350,000)</option>
+                    
+                    <option value="Хүрээтэй бичлэг">Жаазтай уран бичлэг (₮120,000)</option>
+                
+                    <option value="Ханан дээрх бичлэг">Хананы чимэглэл бичлэг (₮450,000)</option>
+                </select>
+                  <label>хэрэгсэл худалдаа</label>
+                <select id="productSelect" required>
+                    <option value="">-- Сонгох --</option>
+                    <option value="Муутуу">"Муутуу"</option>
+                    <option value="жижиг бийр">"жижиг бий"</option>
+                    <option value="дунд бийр">"дунд бийр"</option>
+                    <option value="Том бийр">"Том бийр"</option>
+                    <option value="янтай">"янтай"</option>
+                    
+                    <option value="Хуйлмал">"30000"</option>
+                
+                    <option value="Бэх">"Бэх"</option>
+                </select>
+            </div>
+
+            <div class="product-preview" id="productPreview">
+                <img src="" id="displayImg">
+                <div class="details-text">
+                    <h3 id="displayName">Нэр</h3>
+                    <p id="displayDesc">Тайлбар</p>
+                    <span class="price-badge" id="displayPrice">₮0</span>
+                </div>
+            </div>
+
+            <div class="grid-row">
+                <div class="input-group">
+                    <label>Тоо ширхэг</label>
+                    <input type="number" id="qty" min="1" value="1" required>
+                </div>
+                <div class="input-group">
+                    <label>Хэмжээний сонголт</label>
+                    <select id="pkgType">
+                        <option value="Жижиг (A4)">Жижиг (A4 хэмжээтэй)</option>
+                        <option value="Дунд (A3)">Дунд (A3 хэмжээтэй) +20%</option>
+                        <option value="Том (A2)">Том (A2 хэмжээтэй) +50%</option>
+                        <option value="Тусгай">Тусгай хэмжээ +80%</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Бичүүлэх утга (Монгол бичгээр эсвэл кириллээр)</label>
+                <textarea id="notes" placeholder="Жишээ: 'Мөнх тэнгэр', 'Гэр бүл', 'Аав' гэх мэт..."></textarea>
+            </div>
+
+            <div class="total-card">
+                <span class="total-label">Төлөх нийт дүн:</span>
+                <span class="total-amount" id="finalTotal">₮0</span>
+            </div>
+
+            <button type="submit">Захиалга үүсгэх</button>
+            <div id="pdfResult"></div>
+        </form>
+    </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+<script>
+const productDB = {
+    "Босоо бичлэг (Цаас)": {img: "img/img3.jpg", desc: "Уламжлалт муутуу цаасан дээр бийрээр бичсэн бичлэг.", price: 60000},
+    "Уран зурагт бичлэг": {img: "img/img1.jpg", desc: "Монгол ахуйг харуулсан зурагтай хосолсон уран бичлэг.", price: 150000},
+    "Торгон дээрх бичлэг": {img: "img/img6.jpg", desc: "Торгон дээр гараар бичсэн, хүндэтгэлийн бичлэг.", price: 250000},
+    "Модон дээрх сийлбэр": {img: "img/uil ajillagaa.jpg", desc: "Модон дээр уран сийлбэрээр сийлсэн бичээс.", price: 350000},
+   
+    "Хүрээтэй бичлэг": {img: "img/img9.jpg", desc: "Жаазалсан, бэлэг дурсгалын зориулалттай уран бичлэг.", price: 120000},
+   
+    "Ханан дээрх бичлэг": {img: "img/img4.jpg", desc: "Интерьер чимэглэлийн том хэмжээний бичлэг.", price: 450000},
+     "Муутуу": {img: "img/muutuu.jpg", price: 25000},
+    "жижиг бийр": {img: "img/jijig biir.jpg",price: 15000},
+    "дунд бийр": {img: "img/dund biir.jpg",  price: 25000},
+    "Том бийр": {img: "img/tom biir.jpg",  price: 35000},
+   
+    "янтай": {img: "img/yntai.jpg",  price: 120000},
+   
+    "Хуйлмал": {img: "img/huilmal.jpg",  price: 35000},
+     "Бэх": {img: "img/beh.jpg",  price: 15000}
+};
+
+const pSelect = document.getElementById("productSelect");
+const previewBox = document.getElementById("productPreview");
+
+function updateUI() {
+    const key = pSelect.value;
+    const qty = parseInt(document.getElementById("qty").value) || 0;
+    const size = document.getElementById("pkgType").value;
+    
+    if(productDB[key]) {
+        const imgEl = document.getElementById("displayImg");
+        imgEl.src = productDB[key].img;
+        imgEl.onerror = () => imgEl.src = "https://via.placeholder.com/180x240/222/d4af37?text=Calligraphy";
+
+        document.getElementById("displayName").textContent = key;
+        document.getElementById("displayDesc").textContent = productDB[key].desc;
+        document.getElementById("displayPrice").textContent = `Суурь үнэ: ₮${productDB[key].price.toLocaleString()}`;
+        
+        previewBox.classList.add("show");
+
+        // Үнэ тооцоолох
+        let basePrice = productDB[key].price;
+        let multiplier = 1;
+        if(size === "Дунд (A3)") multiplier = 1.2;
+        else if(size === "Том (A2)") multiplier = 1.5;
+        else if(size === "Тусгай") multiplier = 1.8;
+
+        let total = basePrice * multiplier * qty;
+        document.getElementById("finalTotal").textContent = `₮${Math.round(total).toLocaleString()}`;
+    } else {
+        previewBox.classList.remove("show");
+        document.getElementById("finalTotal").textContent = `₮0`;
+    }
+}
+
+pSelect.addEventListener("change", updateUI);
+document.getElementById("qty").addEventListener("input", updateUI);
+document.getElementById("pkgType").addEventListener("change", updateUI);
+
+document.getElementById("orderForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    const name = document.getElementById("custName").value;
+    const phone = document.getElementById("custPhone").value;
+    const total = document.getElementById("finalTotal").textContent;
+
+    doc.setFillColor(30, 30, 30);
+    doc.rect(0, 0, 210, 35, 'F');
+    doc.setTextColor(212, 175, 55);
+    doc.setFontSize(22);
+    doc.text("CALLIGRAPHY INVOICE", 105, 22, null, null, "center");
+
+    doc.setTextColor(50, 50, 50);
+    doc.setFontSize(11);
+    doc.text(`User: ${name}`, 15, 50);
+    doc.text(`Phone: ${phone}`, 15, 57);
+    doc.text(`Date: ${new Date().toLocaleDateString()}`, 150, 50);
+
+    doc.autoTable({
+        startY: 70,
+        head: [['Buteegdekhuun', 'Khemjee', 'Too', 'Niit dun']],
+        body: [[pSelect.value, document.getElementById("pkgType").value, document.getElementById("qty").value, total]],
+        headStyles: { fillColor: [212, 175, 55], textColor: [0, 0, 0] }
+    });
+
+    doc.text("Bichuulekh utga:", 15, doc.lastAutoTable.finalY + 15);
+    doc.setFontSize(10);
+    doc.text(document.getElementById("notes").value || "Bikhig deegui", 15, doc.lastAutoTable.finalY + 25);
+
+    const pdfBlob = doc.output('datauristring');
+    document.getElementById("pdfResult").innerHTML = `<a href="${pdfBlob}" download="Calligraphy_Order.pdf" class="download-btn">📥 PDF ТАТАХ</a>`;
+});
+</script>
+</body>
+</html>

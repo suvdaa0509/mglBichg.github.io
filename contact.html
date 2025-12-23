@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<title>Contact — Холбоо барих</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+ font-family:system-ui,sans-serif;
+ background:#0f0f0f;
+ color:#fff;
+}
+
+/* ===== HEADER ===== */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  gap:24px;
+  padding:14px 0;
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid #d4af37;
+  z-index:100;
+}
+header a{
+  color:#d4af37;
+  font-weight:600;
+}
+header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid #d4af37;
+        z-index: 1000;
+        
+        /* Цэсийг голлуулах ба гүйлгэх тохиргоо */
+        display: flex;
+        justify-content: center; 
+        overflow-x: auto; /* Багтахгүй бол гүйлгэнэ */
+        white-space: nowrap; /* Цэсийг доош унагахгүй, нэг эгнээнд байлгана */
+        scrollbar-width: none; /* Firefox-т scrollbar нуух */
+    }
+
+    /* Chrome, Safari-д scrollbar нуух (гэхдээ гүйнэ) */
+    header::-webkit-scrollbar {
+        display: none;
+    }
+
+    header nav {
+        display: flex;
+        padding: 15px 20px;
+        gap: 25px;
+    }
+
+    header a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: 0.3s;
+        flex-shrink: 0; /* Цэсийг шахагдахаас хамгаална */
+    }
+
+    header a:hover {
+        color: #d4af37;
+    }
+
+    /* Идэвхтэй байгаа хуудасны өнгө */
+    header a.active {
+        color: #d4af37;
+        border-bottom: 2px solid #d4af37;
+        padding-bottom: 5px;
+    }
+
+    /* Жижиг дэлгэц дээр (Гар утас) */
+    @media (max-width: 768px) {
+        header {
+            justify-content: flex-start; /* Утас дээр зүүн талаас эхэлж гүйнэ */
+        }
+        header nav {
+            gap: 20px;
+            padding: 15px 15px;
+        }
+        header a {
+            font-size: 11px; /* Текстийг бага зэрэг жижигсгэнэ */
+        }
+    }
+
+/* ===== CONTACT SECTION ===== */
+section{
+ max-width:1100px;
+ margin:120px auto;
+ padding:0 20px
+}
+h2{
+ text-align:center;
+ font-size:40px;
+ color:#d4af37;
+ margin-bottom:10px
+}
+.section-desc{
+ text-align:center;
+ color:#aaa;
+ margin-bottom:50px
+}
+
+.contact-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:40px
+}
+
+/* ===== CONTACT INFO ===== */
+.contact-info{
+ display:grid;
+ gap:20px
+}
+.info-card{
+ background:#161616;
+ padding:25px;
+ border-radius:20px;
+ display:flex;
+ gap:15px;
+ align-items:center;
+ transition:.3s
+}
+.info-card:hover{
+ background:#1f1f1f;
+ transform:translateY(-5px)
+}
+.icon{
+ font-size:28px;
+ color:#d4af37
+}
+.info-card h4{
+ margin-bottom:5px
+}
+.info-card p{
+ font-size:14px;
+ color:#ccc
+}
+
+/* ===== FORM ===== */
+form{
+ background:#161616;
+ padding:30px;
+ border-radius:25px;
+ box-shadow:0 15px 40px rgba(0,0,0,.5)
+}
+input, textarea{
+ width:100%;
+ padding:14px;
+ margin-bottom:15px;
+ border:none;
+ border-radius:12px;
+ background:#0f0f0f;
+ color:#fff;
+ font-size:14px
+}
+textarea{
+ height:130px;
+ resize:none
+}
+button{
+ background:#d4af37;
+ color:#000;
+ font-weight:bold;
+ padding:14px;
+ width:100%;
+ border:none;
+ border-radius:14px;
+ cursor:pointer;
+ transition:.3s
+}
+button:hover{
+ background:#fff
+}
+
+.success{
+ display:none;
+ margin-top:15px;
+ color:#7CFF7C;
+ text-align:center;
+ font-size:14px
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+ .contact-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <header>
+  <a href="index.html">нүүр хуудас</a>
+  <a href="about.html">тухай</a>
+  <a href="portfolio.html">Бүтээлүүд</a>
+  <a href="custom.html">Захиалгат</a>
+  <a href="courses.html">Хичээлүүд</a>
+  <a href="services.html">Үйлчилгээ</a>
+  <a href="blog.html">блог
+
+
+  </a>
+  <a href="events.html">үйл ажиллагаа</a>
+  <a href="testimonials.html">сэтгэгдэл</a>
+  <a href="contact.html">холбоо барих</a>
+</header>
+
+<section>
+ <h2>Холбоо барих</h2>
+ <p class="section-desc">
+  Асуух зүйл байвал доорх сувгуудаар бидэнтэй холбогдоорой
+ </p>
+
+ <div class="contact-grid">
+
+  <!-- ===== INFO ===== -->
+  <div class="contact-info">
+
+   <div class="info-card">
+    <div class="icon">📞</div>
+    <div>
+     <h4>Утас</h4>
+     <p>+976 85208164</p>
+    </div>
+   </div>
+
+   <div class="info-card">
+    <div class="icon">✉️</div>
+    <div>
+     <h4>Имэйл</h4>
+     <p>erdenesuvdtaivanbaatar@gmail.com</p>
+    </div>
+   </div>
+
+   <div class="info-card">
+    <div class="icon">📘</div>
+    <div>
+     <h4>Facebook</h4>
+     <p>Т.Эрдэнэсувд</p>
+    </div>
+   </div>
+
+   <div class="info-card">
+    <div class="icon">📍</div>
+    <div>
+     <h4>Хаяг</h4>
+     <p>Улаанбаатар хот, Монгол улс</p>
+    </div>
+   </div>
+
+  </div>
+
+  <!-- ===== FORM ===== -->
+  <form id="contactForm">
+   <input type="text" placeholder="Таны нэр" required>
+   <input type="email" placeholder="Имэйл хаяг" required>
+   <textarea placeholder="Таны мессеж..." required></textarea>
+   <button type="submit">Илгээх</button>
+   <div class="success" id="successMsg">
+    ✔️ Амжилттай илгээгдлээ
+   </div>
+  </form>
+
+ </div>
+</section>
+
+<script>
+const form=document.getElementById("contactForm");
+const success=document.getElementById("successMsg");
+
+form.addEventListener("submit",e=>{
+ e.preventDefault();
+ success.style.display="block";
+ form.reset();
+ setTimeout(()=>success.style.display="none",3000);
+});
+</script>
+
+</body>
+</html>
